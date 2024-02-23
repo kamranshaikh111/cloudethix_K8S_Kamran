@@ -1,0 +1,118 @@
+root@DESKTOP-Q1VPUEC:Deploy# kgs
+NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP        149m
+mysql        ClusterIP   10.110.139.145   <none>        3306/TCP       2m7s
+web          NodePort    10.104.56.11     <none>        80:31557/TCP   3m5s
+root@DESKTOP-Q1VPUEC:Deploy# kgp
+NAME    READY   STATUS    RESTARTS   AGE
+mysql   1/1     Running   0          2m39s
+web1    2/2     Running   0          23s
+root@DESKTOP-Q1VPUEC:Deploy# curl http://54.167.183.0:31557/init
+
+root@DESKTOP-Q1VPUEC:Deploy# curl -i -H "Content-Type: application/json" -X POST -d '{"uid": "1","user":"John Doe"}' http://54.167.183.0:31557/users/add
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 5
+Server: Werkzeug/1.0.1 Python/2.7.15
+Date: Thu, 22 Feb 2024 09:15:30 GMT
+
+root@DESKTOP-Q1VPUEC:Deploy# curl -i -H "Content-Type: application/json" -X POST -d '{"uid": "2","user":"Jane Doe"}' http://54.167.183.0:31557/users/add
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 5
+Server: Werkzeug/1.0.1 Python/2.7.15
+Date: Thu, 22 Feb 2024 09:15:58 GMT
+
+root@DESKTOP-Q1VPUEC:Deploy# curl -i -H "Content-Type: application/json" -X POST -d '{"uid": "3","user":"Bill Colls"}' http://54.167.183.0:31557/users/add
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 5
+Server: Werkzeug/1.0.1 Python/2.7.15
+Date: Thu, 22 Feb 2024 09:16:37 GMT
+
+root@DESKTOP-Q1VPUEC:Deploy# curl -i -H "Content-Type: application/json" -X POST -d '{"uid": "4","user":"Mike Taylor"}' http://54.167.183.0:31557/users/add
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 5
+Server: Werkzeug/1.0.1 Python/2.7.15
+Date: Thu, 22 Feb 2024 09:17:14 GMT
+
+root@DESKTOP-Q1VPUEC:Deploy# curl http://54.167.183.0:31557/users/1
+John Doeroot@DESKTOP-Q1VPUEC:Deploy# curl http://54.167.183.0:31557/users/1
+John Doe(c)
+
+root@DESKTOP-Q1VPUEC:Deploy# mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.01 sec)
+
+mysql> USE mysql;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++------------------------------------------------------+
+| Tables_in_mysql                                      |
++------------------------------------------------------+
+| columns_priv                                         |
+| component                                            |
+| db                                                   |
+| default_roles                                        |
+| engine_cost                                          |
+| func                                                 |
+| general_log                                          |
+| global_grants                                        |
+| gtid_executed                                        |
+| help_category                                        |
+| help_keyword                                         |
+| help_relation                                        |
+| help_topic                                           |
+| innodb_index_stats                                   |
+| innodb_table_stats                                   |
+| password_history                                     |
+| plugin                                               |
+| procs_priv                                           |
+| proxies_priv                                         |
+| replication_asynchronous_connection_failover         |
+| replication_asynchronous_connection_failover_managed |
+| replication_group_configuration_version              |
+| replication_group_member_actions                     |
+| role_edges                                           |
+| server_cost                                          |
+| servers                                              |
+| slave_master_info                                    |
+| slave_relay_log_info                                 |
+| slave_worker_info                                    |
+| slow_log                                             |
+| tables_priv                                          |
+| time_zone                                            |
+| time_zone_leap_second                                |
+| time_zone_name                                       |
+| time_zone_transition                                 |
+| time_zone_transition_type                            |
+| user                                                 |
++------------------------------------------------------+
+37 rows in set (0.00 sec)
+
+mysql> select * from user;
