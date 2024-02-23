@@ -1,4 +1,4 @@
-root@DESKTOP-Q1VPUEC:Q3# ssh -i ~/.ssh/id_rsa ubuntu@18.212.60.128
+root@DESKTOP-Q1VPUEC:Q3# ssh -i ~/.ssh/id_rsa ubuntu@18.212.60.128   ----(ssh one of the worker node of cluster)
 Welcome to Ubuntu 18.04.6 LTS (GNU/Linux 5.4.0-1103-aws x86_64)
 
  * Documentation:  https://help.ubuntu.com
@@ -32,16 +32,18 @@ To run a command as administrator (user "root"), use "sudo <command>".
 See "man sudo_root" for details.
 
 ubuntu@ip-172-31-81-212:~$ sudo su
-root@ip-172-31-81-212:/home/ubuntu# ps -ef | grep kublet
-root     19820 19722  0 14:07 pts/0    00:00:00 grep --color=auto kublet
-root@ip-172-31-81-212:/home/ubuntu# ps -ef | grep kubel
+
+root@ip-172-31-81-212:/home/ubuntu# ps -ef | grep kubel  ----(use the command to check config file location)
 root      5778     1  0 06:25 ?        00:04:26 /usr/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --config=/var/lib/kubelet/config.yaml --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock --hostname-override=worker-1 --pod-infra-container-image=registry.k8s.io/pause:3.9
 root     19905 19722  0 14:07 pts/0    00:00:00 grep --color=auto kubel
-root@ip-172-31-81-212:/home/ubuntu# less /var/lib/kubelet/config.yaml
-root@ip-172-31-81-212:/home/ubuntu# cd /etc/kubernetes/manifests
+root@ip-172-31-81-212:/home/ubuntu# less /var/lib/kubelet/config.yaml  ----(look for the static pod manifests path)
+root@ip-172-31-81-212:/home/ubuntu# cd /etc/kubernetes/manifests  ----(got to the path mentioned in vonfig file)
+   
+root@ip-172-31-81-212:/etc/kubernetes/manifests# vim Static-pod.yaml   ----(put the yaml data for static pod)
 
-root@ip-172-31-81-212:/etc/kubernetes/manifests# systemctl restart kubelet
+root@ip-172-31-81-212:/etc/kubernetes/manifests# systemctl restart kubelet  ----(restart the service and check status of service)
+root@ip-172-31-81-212:/etc/kubernetes/manifests# exit
+
 root@DESKTOP-Q1VPUEC:Q3# kgp
 NAME                         READY   STATUS    RESTARTS   AGE
 cloudethix-static-worker-1   1/1     Running   0          5m14s
-
