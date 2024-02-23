@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: release-deploy
+  namespace: deploy1
+  labels:
+    app: release-nginx
+spec:
+  selector:
+    matchLabels:
+      app: release-nginx
+  template:
+    metadata:
+      labels:
+        app: release-nginx
+    spec:
+      containers:
+        - name: release-nginx
+          image: kamranshaikh111/cloudethix_release_nginx_kamran:v1
+          ports:
+            - containerPort: 80
