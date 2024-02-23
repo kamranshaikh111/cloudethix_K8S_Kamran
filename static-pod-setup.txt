@@ -1,0 +1,47 @@
+root@DESKTOP-Q1VPUEC:Q3# ssh -i ~/.ssh/id_rsa ubuntu@18.212.60.128
+Welcome to Ubuntu 18.04.6 LTS (GNU/Linux 5.4.0-1103-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Wed Feb 21 14:06:44 UTC 2024
+
+  System load:  0.0               Users logged in:        0
+  Usage of /:   55.0% of 7.57GB   IP address for eth0:    172.31.81.212
+  Memory usage: 26%               IP address for docker0: 172.17.0.1
+  Swap usage:   0%                IP address for tunl0:   10.111.158.64
+  Processes:    133
+
+
+Expanded Security Maintenance for Infrastructure is not enabled.
+
+10 updates can be applied immediately.
+2 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+89 additional security updates can be applied with ESM Infra.
+Learn more about enabling ESM Infra service for Ubuntu 18.04 at
+https://ubuntu.com/18-04
+
+New release '20.04.6 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+ubuntu@ip-172-31-81-212:~$ sudo su
+root@ip-172-31-81-212:/home/ubuntu# ps -ef | grep kublet
+root     19820 19722  0 14:07 pts/0    00:00:00 grep --color=auto kublet
+root@ip-172-31-81-212:/home/ubuntu# ps -ef | grep kubel
+root      5778     1  0 06:25 ?        00:04:26 /usr/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --config=/var/lib/kubelet/config.yaml --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock --hostname-override=worker-1 --pod-infra-container-image=registry.k8s.io/pause:3.9
+root     19905 19722  0 14:07 pts/0    00:00:00 grep --color=auto kubel
+root@ip-172-31-81-212:/home/ubuntu# less /var/lib/kubelet/config.yaml
+root@ip-172-31-81-212:/home/ubuntu# cd /etc/kubernetes/manifests
+
+root@ip-172-31-81-212:/etc/kubernetes/manifests# systemctl restart kubelet
+root@DESKTOP-Q1VPUEC:Q3# kgp
+NAME                         READY   STATUS    RESTARTS   AGE
+cloudethix-static-worker-1   1/1     Running   0          5m14s
+
