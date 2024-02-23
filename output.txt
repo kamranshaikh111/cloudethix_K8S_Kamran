@@ -1,0 +1,12 @@
+root@DESKTOP-Q1VPUEC:Q14# k get cronjob
+NAME                SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+python-helloworld   */1 * * * *   False     0        34s             104s
+root@DESKTOP-Q1VPUEC:Q14# kgp
+NAME                               READY   STATUS      RESTARTS   AGE
+python-helloworld-28476748-x588c   0/1     Completed   0          97s
+python-helloworld-28476749-rcnkn   0/1     Completed   0          37s
+
+root@DESKTOP-Q1VPUEC:Q14# k logs python-helloworld-28476821-kppgz
+Welcome to the Cloudethix World
+Today is
+2024-02-22 13:41:01.029780
