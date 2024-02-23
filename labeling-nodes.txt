@@ -1,0 +1,15 @@
+root@DESKTOP-Q1VPUEC:Q3# kubectl label node worker-0 cloudethix-k8s-00=worker-0
+node/worker-0 not labeled
+root@DESKTOP-Q1VPUEC:Q3# kubectl get nodes --show-labels
+NAME       STATUS   ROLES           AGE     VERSION   LABELS
+master     Ready    control-plane   6h35m   v1.28.2   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=master,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=,node.kubernetes.io/exclude-from-external-load-balancers=
+worker-0   Ready    <none>          6h35m   v1.28.2   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,cloudethix-k8s-00=worker-0,kubernetes.io/arch=amd64,kubernetes.io/hostname=worker-0,kubernetes.io/os=linux,node-type=worker-1
+worker-1   Ready    <none>          6h34m   v1.28.2   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=worker-1,kubernetes.io/os=linux,node-type=worker-0
+
+root@DESKTOP-Q1VPUEC:Q3# kubectl label node worker-1 cloudethix-k8s-01=worker-1
+node/worker-1 labeled
+root@DESKTOP-Q1VPUEC:Q3# kubectl get nodes --show-labels
+NAME       STATUS   ROLES           AGE     VERSION   LABELS
+master     Ready    control-plane   6h36m   v1.28.2   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=master,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=,node.kubernetes.io/exclude-from-external-load-balancers=
+worker-0   Ready    <none>          6h35m   v1.28.2   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,cloudethix-k8s-00=worker-0,kubernetes.io/arch=amd64,kubernetes.io/hostname=worker-0,kubernetes.io/os=linux,node-type=worker-1
+worker-1   Ready    <none>          6h35m   v1.28.2   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,cloudethix-k8s-01=worker-1,kubernetes.io/arch=amd64,kubernetes.io/hostname=worker-1,kubernetes.io/os=linux,node-type=worker-0
