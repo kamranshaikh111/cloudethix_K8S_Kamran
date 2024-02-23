@@ -1,0 +1,3 @@
+apt clean all -v
+apt update 
+apt install kubectx / snap install kubectx --classic
